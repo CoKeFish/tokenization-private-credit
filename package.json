@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "start": "turbo run start",
+    "start": "node scripts/start.js",
+    "start:all": "turbo run start",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "install:win": "npm install --ignore-scripts"
