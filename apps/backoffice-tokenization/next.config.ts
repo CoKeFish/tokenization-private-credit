@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output: "standalone",
   reactCompiler: true,
   transpilePackages: ["@tokenization/shared", "@tokenization/ui", "@tokenization/tw-blocks-shared"],
   turbopack: {
