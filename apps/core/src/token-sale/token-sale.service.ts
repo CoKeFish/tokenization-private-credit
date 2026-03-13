@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+  import { toMicroUSDC } from '../common/utils/micro-usdc';
 import { SorobanService } from '../soroban/soroban.service';
 import { BuyDto } from './dto/buy.dto';
 import { UpdateCapsDto } from './dto/update-caps.dto';
@@ -7,7 +8,7 @@ import { SetAdminDto } from './dto/set-admin.dto';
 
 @Injectable()
 export class TokenSaleService {
-  constructor(private readonly soroban: SorobanService) {}
+  constructor(private readonly soroban: SorobanService) { }
 
   // ── Writes ──
 
@@ -19,7 +20,7 @@ export class TokenSaleService {
         usdc: dto.usdcAddress,
         payer: dto.payer,
         beneficiary: dto.beneficiary,
-        amount: dto.amount,
+        amount: toMicroUSDC(dto.amount),
       },
       dto.callerPublicKey,
     );
@@ -30,8 +31,8 @@ export class TokenSaleService {
       dto.contractId,
       'update_caps',
       {
-        new_hard_cap: dto.newHardCap,
-        new_max_per_investor: dto.newMaxPerInvestor,
+        new_hard_cap: toMicroUSDC(dto.newHardCap),
+        new_max_per_investor: toMicroUSDC(dto.newMaxPerInvestor),
       },
       dto.callerPublicKey,
     );

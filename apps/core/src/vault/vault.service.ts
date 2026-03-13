@@ -10,7 +10,7 @@ export class VaultService {
   constructor(
     private readonly soroban: SorobanService,
     private readonly prisma: PrismaService,
-  ) {}
+  ) { }
 
   async availabilityForExchange(dto: AvailabilityForExchangeDto): Promise<string> {
     const unsignedXdr = await this.soroban.buildContractCallTransaction(
@@ -34,33 +34,17 @@ export class VaultService {
     return this.soroban.buildContractCallTransaction(
       dto.contractId,
       'claim',
-      {
-        beneficiary: dto.beneficiary,
-      },
+      { beneficiary: dto.beneficiary },
       dto.callerPublicKey,
     );
   }
 
   getOverview(contractId: string, callerPublicKey: string): Promise<unknown> {
-    return this.soroban.readContractState(
-      contractId,
-      'get_vault_overview',
-      {},
-      callerPublicKey,
-    );
+    return this.soroban.readContractState(contractId, 'get_vault_overview', {}, callerPublicKey);
   }
 
-  previewClaim(
-    contractId: string,
-    beneficiary: string,
-    callerPublicKey: string,
-  ): Promise<unknown> {
-    return this.soroban.readContractState(
-      contractId,
-      'preview_claim',
-      { beneficiary },
-      callerPublicKey,
-    );
+  previewClaim(contractId: string, beneficiary: string, callerPublicKey: string): Promise<unknown> {
+    return this.soroban.readContractState(contractId, 'preview_claim', { beneficiary }, callerPublicKey);
   }
 
   isEnabled(contractId: string, callerPublicKey: string): Promise<unknown> {
